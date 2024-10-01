@@ -195,7 +195,7 @@ const SingleProduct: FC = () => {
               type="button"
               className={`flex items-center space-x-1 mb-2  p-2 rounded ${
                 isInCart
-                  ? "hover:bg-gray-100 border-[1px] text-black border-black"
+                  ? "dark:bg-gray-100 dark:hover:bg-gray-400 hover:bg-gray-100 border-[1px] text-black border-black"
                   : " hover:bg-pink-700 bg-pink-500 text-white"
               }`}
               onClick={addCart}
@@ -215,7 +215,7 @@ const SingleProduct: FC = () => {
               type="button"
               className={`flex items-center space-x-1 mb-2 p-2 rounded ${
                 isInWishlist
-                  ? "hover:bg-gray-100 border-[1px] text-black border-black"
+                  ? "dark:bg-gray-100 dark:hover:bg-gray-400 hover:bg-gray-100 border-[1px] text-black border-black"
                   : "bg-yellow-500 hover:bg-yellow-700"
               }`}
               onClick={addWishlist}
