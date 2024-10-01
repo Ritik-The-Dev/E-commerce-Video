@@ -128,7 +128,7 @@ const ProductCard: FC<Product> = ({
   };
 
   return (
-    <div className="bg-white h-[550px] dark:bg-slate-800 shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+    <div className="bg-white dark:bg-slate-800 shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
       <div
         className="relative h-full font-lato bg-white  rounded-lg dark:bg-opacity-5 group"
         data-test="product-card"
@@ -170,10 +170,10 @@ const ProductCard: FC<Product> = ({
             {title}
           </Link>
         </div>
-        <div className="flex items-center justify-center px-8 pb-4">
+        <div className="flex items-center justify-center ">
           <RatingStar rating={rating} />
         </div>
-        <div className="flex items-center justify-center px-8 pb-4">
+        <div className="flex items-center justify-center ">
           {discountPercentage && (
             <PriceSection
               discountPercentage={discountPercentage}
@@ -181,7 +181,7 @@ const ProductCard: FC<Product> = ({
             />
           )}
         </div>
-        <div className="flex items-center justify-center px-8 pb-4 opacity-0 group-hover:opacity-100">
+        <div className="flex items-center p-2 justify-center  opacity-0 group-hover:opacity-100">
           <button
             type="button"
             className={`flex items-center space-x-2 py-2 px-4 rounded border ${

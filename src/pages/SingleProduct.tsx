@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useAppDispatch } from "../redux/hooks";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addToCart, setCartState } from "../redux/features/cartSlice";
 import { Product } from "../models/Product";
 import RatingStar from "../components/RatingStar";
@@ -18,12 +18,17 @@ const lorem =
 
 const SingleProduct: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { productID } = useParams();
   const [product, setProduct] = useState<Product>();
   const [imgs, setImgs] = useState<string[]>();
   const [selectedImg, setSelectedImg] = useState<string>();
   const [sCategory, setScategory] = useState<string>();
   const [similar, setSimilar] = useState<Product[]>([]);
+  const [isInCart, setIsInCart] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const items = useAppSelector((state) => state.cartReducer.cartItems);
+  const wishlist = useAppSelector((state) => state.productReducer.wishlist);
 
   useEffect(() => {
     const fetchProductDetails = () => {
@@ -56,6 +61,10 @@ const SingleProduct: FC = () => {
   }, [productID, sCategory]);
 
   const addCart = () => {
+    if (isInCart) {
+      dispatch(setCartState(true));
+      return;
+    }
     if (product)
       dispatch(
         addToCart({
@@ -104,6 +113,10 @@ const SingleProduct: FC = () => {
   };
 
   const addWishlist = () => {
+    if (isInWishlist) {
+      navigate("/wishlist");
+      return;
+    }
     if (product) {
       dispatch(addToWishlist(product));
       toast.success("item added to your wishlist", {
@@ -111,6 +124,18 @@ const SingleProduct: FC = () => {
       });
     }
   };
+
+  useEffect(() => {
+    const ItemInCart = items.filter((e) => e.id.toString() === productID);
+    setIsInCart(ItemInCart.length > 0);
+  }, [items, productID]);
+
+  // Check if the product is in the wishlist on component mount
+  useEffect(() => {
+    setIsInWishlist(
+      wishlist.some((product) => product.id.toString() === productID)
+    );
+  }, [wishlist, productID]);
 
   return (
     <div className="container mx-auto pt-8 dark:text-white">
@@ -168,11 +193,15 @@ const SingleProduct: FC = () => {
           <div className="flex flex-wrap items-center mt-4 mb-2 space-x-2">
             <button
               type="button"
-              className="flex items-center space-x-1 mb-2 hover:bg-pink-700 text-white p-2 rounded bg-pink-500"
+              className={`flex items-center space-x-1 mb-2  p-2 rounded ${
+                isInCart
+                  ? "hover:bg-gray-100 border-[1px] text-black border-black"
+                  : " hover:bg-pink-700 bg-pink-500 text-white"
+              }`}
               onClick={addCart}
             >
               <AiOutlineShoppingCart />
-              <span>ADD TO CART</span>
+              <span>{isInCart ? "GO TO CART" : "ADD TO CART"}</span>
             </button>
             <button
               type="button"
@@ -184,11 +213,15 @@ const SingleProduct: FC = () => {
             </button>
             <button
               type="button"
-              className="flex items-center space-x-1 mb-2 bg-yellow-500 text-white p-2 rounded hover:bg-yellow-700"
+              className={`flex items-center space-x-1 mb-2 p-2 rounded ${
+                isInWishlist
+                  ? "hover:bg-gray-100 border-[1px] text-black border-black"
+                  : "bg-yellow-500 hover:bg-yellow-700"
+              }`}
               onClick={addWishlist}
             >
               <MdFavoriteBorder />
-              <span>ADD TO WISHLIST</span>
+              <span>{isInWishlist ? "Go To Wishlist" : "ADD TO WISHLIST"}</span>
             </button>
           </div>
         </div>

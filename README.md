@@ -47,6 +47,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For any inquiries or feedback, feel free to contact [me](mailto:niravgujarathi3@gmail.com).
+For any inquiries or feedback, feel free to contact [me](mailto:joshiritik175@gmail.com).
 
 Happy coding! 🚀
