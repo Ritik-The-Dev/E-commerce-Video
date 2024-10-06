@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { CartItem } from "../interfaces/All_Interface";
+import { CartItem } from "../interfaces/DataProvider";
 import {
   IoIosAddCircleOutline,
   IoIosRemoveCircleOutline,

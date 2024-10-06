@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addToCart, setCartState } from "../redux/features/cartSlice";
-import { Product } from "../interfaces/All_Interface";
+import { Product } from "../interfaces/DataProvider";
 import RatingStar from "../components/RatingStar";
 import PriceSection from "../components/PriceSection";
 import toast from "react-hot-toast";

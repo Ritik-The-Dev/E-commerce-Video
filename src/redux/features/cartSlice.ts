@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CartItem } from "../../interfaces/All_Interface";
+import { CartItem } from "../../interfaces/DataProvider";
 
 interface CartSlice {
   cartOpen: boolean;

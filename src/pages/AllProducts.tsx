@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { addProducts } from "../redux/features/productSlice";
 import ProductCard from "../components/ProductCard";
-import { Product } from "../interfaces/All_Interface";
+import { Product } from "../interfaces/DataProvider";
 import { FETCH_PRODUCTS } from "../api/Api";
 
 const AllProducts: FC = () => {

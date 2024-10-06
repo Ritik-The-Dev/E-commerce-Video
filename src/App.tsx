@@ -14,7 +14,7 @@ import SingleCategory from "./pages/SingleCategory";
 import { useEffect } from "react";
 import { addToCart } from "./redux/features/cartSlice";
 import { addToWishlist } from "./redux/features/productSlice";
-import { CartItem } from "./interfaces/All_Interface";
+import { CartItem } from "./interfaces/DataProvider";
 import { useAppDispatch } from "./redux/hooks";
 import { updateDarkMode } from "./redux/features/homeSlice";
 

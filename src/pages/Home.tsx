@@ -7,11 +7,11 @@ import {
   updateNewList,
   updateFeaturedList,
 } from "../redux/features/productSlice";
-import { Product } from "../interfaces/All_Interface";
+import { Product } from "../interfaces/DataProvider";
 import LatestProducts from "../components/LatestProducts";
 import Banner from "../components/Banner";
 import Marquee from "react-fast-marquee";
-import WhyShopWithUs from "../components/WhyShowWithUs";
+import WhyShopWithUs from "../components/WhyShopWithUs";
 import { FETCH_PRODUCTS } from "../api/Api";
 
 const Home: FC = () => {

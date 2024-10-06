@@ -11,7 +11,7 @@ import { setCartState } from "../redux/features/cartSlice";
 import { Link } from "react-router-dom";
 import { updateDarkMode } from "../redux/features/homeSlice";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
-import { Product } from "../interfaces/All_Interface";
+import { Product } from "../interfaces/DataProvider";
 import { GET_SEARCH_PRODUCTS } from "../api/Api";
 
 const Navbar: FC = () => {

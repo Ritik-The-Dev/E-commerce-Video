@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react";
-import { Product } from "../interfaces/All_Interface";
+import { Product } from "../interfaces/DataProvider";
 import RatingStar from "./RatingStar";
 import { addToCart, setCartState } from "../redux/features/cartSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -12,7 +12,7 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from "../redux/features/productSlice";
-import { CartItem } from "../interfaces/All_Interface";
+import { CartItem } from "../interfaces/DataProvider";
 
 const ProductCard: FC<Product> = ({
   id,

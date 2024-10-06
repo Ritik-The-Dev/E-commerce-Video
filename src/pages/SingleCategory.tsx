@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Product } from "../interfaces/All_Interface";
+import { Product } from "../interfaces/DataProvider";
 import ProductCard from "../components/ProductCard";
 import { FETCH_PRODUCTS_BY_CATEGORY } from "../api/Api";
 
