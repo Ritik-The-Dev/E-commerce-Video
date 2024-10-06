@@ -1,4 +1,3 @@
-import "./App.css";
 import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
@@ -7,7 +6,6 @@ import Footer from "./components/Footer";
 import Cart from "./components/Cart";
 import SingleProduct from "./pages/SingleProduct";
 import Wishlist from "./pages/Wishlist";
-import Profile from "./pages/Profile";
 import AllProducts from "./pages/AllProducts";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import BannerPopup from "./components/BannerPopup";
@@ -16,7 +14,7 @@ import SingleCategory from "./pages/SingleCategory";
 import { useEffect } from "react";
 import { addToCart } from "./redux/features/cartSlice";
 import { addToWishlist } from "./redux/features/productSlice";
-import { CartItem } from "./models/CartItem";
+import { CartItem } from "./interfaces/All_Interface";
 import { useAppDispatch } from "./redux/hooks";
 import { updateDarkMode } from "./redux/features/homeSlice";
 
@@ -51,7 +49,6 @@ function App() {
         <Route path="/product/:productID" element={<SingleProduct />} />
         <Route path="/category/:slug" element={<SingleCategory />} />
         <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/account" element={<Profile />} />
       </Routes>
       <Toaster position="bottom-center" reverseOrder={false} />
       <Footer />

@@ -1,6 +1,11 @@
 import { FC, useEffect, useState } from "react";
 import RatingStar from "./RatingStar";
-import { ReviewItem } from "../models/ReviewItem";
+
+interface ReviewItem {
+  username: string;
+  rating: number;
+  review: string;
+}
 
 const reviews: ReviewItem[] = [
   {

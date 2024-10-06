@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 
 const ScrollToTopButton: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] =  useState<boolean>(false);
 
   const toggleVisibility = () => {
     if (window.scrollY > 300) {

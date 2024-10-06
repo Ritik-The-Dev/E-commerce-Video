@@ -1,30 +1,29 @@
 import { FC, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineShoppingCart, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import {
+  AiOutlineShoppingCart,
+  AiOutlineMenu,
+  AiOutlineClose,
+} from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { setCartState } from "../redux/features/cartSlice";
-//import { updateModal } from "../redux/features/authSlice";
 import { Link } from "react-router-dom";
-//import useAuth from "../hooks/useAuth";
-//import { FaUser } from "react-icons/fa";
-//import CustomPopup from "./CustomPopup";
 import { updateDarkMode } from "../redux/features/homeSlice";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
-import { Product } from "../models/Product";
+import { Product } from "../interfaces/All_Interface";
+import { GET_SEARCH_PRODUCTS } from "../api/Api";
 
 const Navbar: FC = () => {
   const dispatch = useAppDispatch();
   const cartCount = useAppSelector(
     (state) => state.cartReducer.cartItems.length
   );
-  //const username = useAppSelector((state) => state.authReducer.username);
   const isDarkMode = useAppSelector((state) => state.homeReducer.isDarkMode);
-  //const { requireAuth } = useAuth();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
 
   const clearSearch = useCallback(() => {
@@ -37,16 +36,14 @@ const Navbar: FC = () => {
     setSearchTerm("");
   }, []);
 
-  const handleProductClick = useCallback((productId: number) => {
-    clearSearch();
-    navigate(`/product/${productId}`);
-  }, [clearSearch, navigate]);
+  const handleProductClick = useCallback(
+    (productId: number) => {
+      clearSearch();
+      navigate(`/product/${productId}`);
+    },
+    [clearSearch, navigate]
+  );
 
-
-
-  // const showCart = () => {
-  //   requireAuth(() => dispatch(setCartState(true)));
-  // };
   const showCart = () => {
     dispatch(setCartState(true));
   };
@@ -58,8 +55,7 @@ const Navbar: FC = () => {
   const handleSearch = async () => {
     if (searchTerm.trim() === "") return;
     try {
-      const response = await fetch(`https://dummyjson.com/products/search?q=${searchTerm}`);
-      const data = await response.json();
+      const data = await GET_SEARCH_PRODUCTS(searchTerm);
       setSearchResults(data.products);
     } catch (error) {
       console.error("Error fetching search results:", error);
@@ -84,7 +80,7 @@ const Navbar: FC = () => {
               className="border-2 border-blue-500 px-6 py-2 w-full dark:text-white dark:bg-slate-800"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+              onKeyPress={(e) => e.key === "Enter" && handleSearch()}
             />
             <div
               className="bg-blue-500 text-white text-[26px] grid place-items-center px-4 cursor-pointer"
@@ -92,7 +88,6 @@ const Navbar: FC = () => {
             >
               <BsSearch />
             </div>
-
           </div>
           <div className="hidden lg:flex gap-4 md:gap-8 items-center dark:text-white">
             <Link
@@ -116,30 +111,6 @@ const Navbar: FC = () => {
             >
               Wishlist
             </Link>
-            {/* <div className="flex items-center gap-2">
-             {username !== "" ? (
-                <img
-                  src="https://robohash.org/Terry.png?set=set4"
-                  alt="avatar"
-                  className="w-6"
-                />
-              ) : (
-                <FaUser className="text-gray-500 text-2xl dark:text-white" />
-              )}
-              <div className="text-gray-500 text-2xl">
-                {username !== "" ? (
-                  <CustomPopup />
-                ) : (
-                  <span
-                    className="cursor-pointer hover:opacity-85 dark:text-white"
-                    onClick={() => dispatch(updateModal(true))}
-                    data-test="login-btn"
-                  >
-                    Login
-                  </span>
-                )} 
-            </div> */}
-
             <div
               onClick={() => {
                 dispatch(updateDarkMode(!isDarkMode));
@@ -176,7 +147,9 @@ const Navbar: FC = () => {
       </div>
       {/* Mobile Drawer */}
       <div
-        className={`lg:hidden fixed top-0 right-0 h-full w-64 bg-white dark:bg-slate-800 shadow-lg transform transition-transform duration-300 ease-in-out ${isDrawerOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`lg:hidden fixed top-0 right-0 h-full w-64 bg-white dark:bg-slate-800 shadow-lg transform transition-transform duration-300 ease-in-out ${
+          isDrawerOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         <div className="p-4">
           <div className="flex justify-end">
@@ -196,9 +169,12 @@ const Navbar: FC = () => {
                 className="border-2 border-blue-500 px-3 py-2 w-full text-sm dark:text-white dark:bg-slate-700"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                onKeyPress={(e) => e.key === "Enter" && handleSearch()}
               />
-              <button className="bg-blue-500 text-white px-3 py-2" onClick={handleSearch}>
+              <button
+                className="bg-blue-500 text-white px-3 py-2"
+                onClick={handleSearch}
+              >
                 <BsSearch />
               </button>
             </div>
@@ -235,9 +211,15 @@ const Navbar: FC = () => {
               }}
             >
               {isDarkMode ? (
-                <MdOutlineLightMode className="cursor-pointer dark:text-white" size={30} />
+                <MdOutlineLightMode
+                  className="cursor-pointer dark:text-white"
+                  size={30}
+                />
               ) : (
-                <MdOutlineDarkMode className="cursor-pointer dark:text-white" size={30} />
+                <MdOutlineDarkMode
+                  className="cursor-pointer dark:text-white"
+                  size={30}
+                />
               )}
             </div>
           </div>
@@ -247,7 +229,9 @@ const Navbar: FC = () => {
       {searchTerm && (
         <div className="container mx-auto px-4 mt-4">
           <div className="flex justify-between items-center mb-2">
-            <h2 className="text-2xl font-bold dark:text-white">Search Results:</h2>
+            <h2 className="text-2xl font-bold dark:text-white">
+              Search Results:
+            </h2>
             <button
               onClick={clearSearchResults}
               className="flex items-center gap-2 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors duration-200"

@@ -9,7 +9,7 @@ const Cart: FC = () => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.cartReducer.cartOpen);
   const items = useAppSelector((state) => state.cartReducer.cartItems);
-  const [checkout, setCheckout] = useState(false);
+  const [checkout, setCheckout] = useState<boolean>(false);
 
   const calculateTotal = () => {
     let total = 0;

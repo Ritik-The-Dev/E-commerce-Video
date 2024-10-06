@@ -1,10 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { HomeSlice } from "../../models/HomeSlice";
 
 const initialState: HomeSlice = {
   isBannerVisible: true,
   isDarkMode: false,
 };
+
+interface HomeSlice {
+  isBannerVisible: boolean;
+  isDarkMode: boolean;
+}
 
 export const homeSlice = createSlice({
   name: "homeSlice",

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Product } from "../models/Product";
+import { Product } from "../interfaces/All_Interface";
 import ProductCard from "./ProductCard";
 
 const ProductList: FC<{ title: string; products: Product[] }> = ({

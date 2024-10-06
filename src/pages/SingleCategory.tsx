@@ -1,23 +1,17 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Product } from "../models/Product";
+import { Product } from "../interfaces/All_Interface";
 import ProductCard from "../components/ProductCard";
+import { FETCH_PRODUCTS_BY_CATEGORY } from "../api/Api";
 
 const SingleCategory: FC = () => {
   const { slug } = useParams();
   const [productList, setProductList] = useState<Product[]>([]);
 
   useEffect(() => {
-    const fetchProducts = () => {
-      fetch(`https://dummyjson.com/products/category/${slug}`)
-        .then((res) => res.json())
-        .then((data) => {
-          const { products } = data;
-          setProductList(products);
-        });
-    };
-
-    fetchProducts();
+    FETCH_PRODUCTS_BY_CATEGORY(slug).then(({ products }) => {
+      setProductList(products);
+    });
   }, [slug]);
 
   return (

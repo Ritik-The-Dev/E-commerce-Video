@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react";
-import { Product } from "../models/Product";
+import { Product } from "../interfaces/All_Interface";
 import RatingStar from "./RatingStar";
 import { addToCart, setCartState } from "../redux/features/cartSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -12,7 +12,7 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from "../redux/features/productSlice";
-import { CartItem } from "../models/CartItem";
+import { CartItem } from "../interfaces/All_Interface";
 
 const ProductCard: FC<Product> = ({
   id,
@@ -27,9 +27,9 @@ const ProductCard: FC<Product> = ({
   image = [],
 }) => {
   const dispatch = useAppDispatch();
-  const [imageToShow, setImageToShow] = useState(thumbnail); // Default to thumbnail
-  const [isInCart, setIsInCart] = useState(false);
-  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [imageToShow, setImageToShow] = useState<string | undefined>(thumbnail); // Default to thumbnail
+  const [isInCart, setIsInCart] = useState<boolean>(false);
+  const [isInWishlist, setIsInWishlist] = useState<boolean>(false);
   const items = useAppSelector((state) => state.cartReducer.cartItems);
   const wishlist = useAppSelector((state) => state.productReducer.wishlist);
 

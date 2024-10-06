@@ -6,7 +6,7 @@ interface Props {
 }
 
 const useDiscount = ({ price, discount = 0 }: Props) => {
-  const [result, setResult] = useState(0);
+  const [result, setResult] = useState<number>(0);
 
   useEffect(() => {
     if (discount === 0) {

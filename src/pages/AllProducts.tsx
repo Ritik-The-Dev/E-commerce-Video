@@ -2,7 +2,8 @@ import { FC, useEffect, useRef, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { addProducts } from "../redux/features/productSlice";
 import ProductCard from "../components/ProductCard";
-import { Product } from "../models/Product";
+import { Product } from "../interfaces/All_Interface";
+import { FETCH_PRODUCTS } from "../api/Api";
 
 const AllProducts: FC = () => {
   const dispatch = useAppDispatch();
@@ -12,7 +13,7 @@ const AllProducts: FC = () => {
   const allProducts = useAppSelector(
     (state) => state.productReducer.allProducts
   );
-  const [offset, setOffset] = useState(50);
+  const [offset, setOffset] =  useState<number>(50);
 
   // Fetch products and cache them
   useEffect(() => {
@@ -26,16 +27,11 @@ const AllProducts: FC = () => {
     ) {
       dispatch(addProducts(JSON.parse(cachedProducts)));
     } else {
-      const fetchProducts = () => {
-        fetch("https://dummyjson.com/products?limit=500")
-          .then((res) => res.json())
-          .then(({ products }) => {
-            localStorage.setItem("cachedProducts", JSON.stringify(products));
-            localStorage.setItem("cacheTime", Date.now().toString());
-            dispatch(addProducts(products));
-          });
-      };
-      fetchProducts();
+      FETCH_PRODUCTS(500).then(({ products }) => {
+        localStorage.setItem("cachedProducts", JSON.stringify(products));
+        localStorage.setItem("cacheTime", Date.now().toString());
+        dispatch(addProducts(products));
+      });
     }
   }, [dispatch]);
 

@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CartItem } from "../../models/CartItem";
-import { CartSlice } from "../../models/CartSlice";
+import { CartItem } from "../../interfaces/All_Interface";
+
+interface CartSlice {
+  cartOpen: boolean;
+  cartItems: CartItem[];
+}
 
 const initialState: CartSlice = {
   cartOpen: false,
