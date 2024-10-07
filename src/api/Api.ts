@@ -33,15 +33,6 @@ export const FETCH_PRODUCTS = async (limit: number) => {
   }
 };
 
-export const FETCH_USER = async () => {
-  try {
-    const { data } = await axios.get(`https://dummyjson.com/users/1`);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const FETCH_PRODUCTS_BY_CATEGORY = async (slug: string | undefined) => {
   try {
     const { data } = await axios.get(
