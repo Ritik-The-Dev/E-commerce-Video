@@ -40,34 +40,6 @@ const ProductList: FC<{ title: string; products: Product[] }> = ({
             {title}
           </h2>
         </div>
-        {/* <div
-        className="grid gap-6 md:grid-cols-2 p-5 grid-col-1 lg:grid-cols-4 mt-4"
-        data-test="product-list-container"
-      >
-        {products?.map((product) => (
-          <ProductCard
-            key={product.id}
-            image={
-              product && product.images && product.images[1]
-                ? product.images[1]
-                : product.thumbnail
-            }
-            id={product.id}
-            category={product.category}
-            title={product.title}
-            price={product.price}
-            thumbnail={product.thumbnail}
-            rating={product.rating}
-            discountPercentage={product.discountPercentage}
-            onLoad={() => {
-              console.log("Image loaded");
-            }}
-            onError={() => {
-              console.log("Image failed to load");
-            }}
-          />
-        ))}
-      </div> */}
         <div className="grid gap-4 mt-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
           {products.map((product) => (
             <ProductCard
@@ -78,8 +50,6 @@ const ProductList: FC<{ title: string; products: Product[] }> = ({
                   ? product.images[1]
                   : product.thumbnail
               }
-              onLoad={handleImageLoad}
-              onError={handleImageError}
             />
           ))}
         </div>

@@ -18,8 +18,6 @@ const ProductCard: FC<Product> = ({
   id,
   price,
   thumbnail,
-  onLoad = () => {},
-  onError = () => {},
   title,
   category,
   rating,
@@ -62,13 +60,7 @@ const ProductCard: FC<Product> = ({
       rating,
       thumbnail,
       discountPercentage,
-      image: "",
-      onLoad: () => {
-        console.log("Image loaded");
-      },
-      onError: () => {
-        console.log("Image failed to load");
-      },
+      image: ""
     };
 
     // Dispatch addToCart action
@@ -90,13 +82,7 @@ const ProductCard: FC<Product> = ({
       rating,
       thumbnail,
       discountPercentage,
-      image: Array.isArray(image) ? "" : image,
-      onLoad: () => {
-        console.log("Image loaded");
-      },
-      onError: () => {
-        console.log("Image failed to load");
-      },
+      image: Array.isArray(image) ? "" : image
     };
 
     if (isInWishlist) {
@@ -153,8 +139,6 @@ const ProductCard: FC<Product> = ({
               onMouseLeave={handleMouseLeave}
               alt={title}
               loading="eager"
-              onLoad={onLoad}
-              onError={onError}
               className="inline-block p-5 h-[300px] w-[358px] object-cover transition-transform duration-200 hover:scale-110"
             />
           </Link>

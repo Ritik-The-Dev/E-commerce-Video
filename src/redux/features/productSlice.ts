@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "../../interfaces/DataProvider";
+import { Category, Product } from "../../interfaces/DataProvider";
 
 const initialState: ProductSlice = {
   allProducts: [],
@@ -8,12 +8,6 @@ const initialState: ProductSlice = {
   featuredProducts: [],
   wishlist: [],
 };
-
-interface Category {
-  name: string;
-  slug: string;
-  url: string;
-}
 
 interface ProductSlice {
   allProducts: Product[];

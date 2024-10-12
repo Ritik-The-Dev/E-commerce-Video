@@ -58,8 +58,6 @@ const CartRow: FC<CartItem> = ({
                 rating,
                 category,
                 image: "", // Provide the actual image value
-                onLoad: () => {}, // Your actual onLoad function
-                onError: () => {}, // Provide a default function for onError
               })
             }
           />

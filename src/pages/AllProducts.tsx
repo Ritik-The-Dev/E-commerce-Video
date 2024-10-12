@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { addProducts } from "../redux/features/productSlice";
 import ProductCard from "../components/ProductCard";
 import { Product } from "../interfaces/DataProvider";
-import { FETCH_PRODUCTS } from "../api/Api";
+import { fetchProducts } from "../api/Api";
 
 const AllProducts: FC = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +13,20 @@ const AllProducts: FC = () => {
   const allProducts = useAppSelector(
     (state) => state.productReducer.allProducts
   );
-  const [offset, setOffset] =  useState<number>(50);
+  const [offset, setOffset] = useState<number>(50);
+
+  const fetchProduct = async () => {
+    try {
+      const data = await fetchProducts(500);
+      if (data) {
+        localStorage.setItem("cachedProducts", JSON.stringify(data));
+        localStorage.setItem("cacheTime", Date.now().toString());
+        dispatch(addProducts(data));
+      }
+    } catch (error: any) {
+      console.error(`Error Fetching Products ${error}`);
+    }
+  };
 
   // Fetch products and cache them
   useEffect(() => {
@@ -27,11 +40,7 @@ const AllProducts: FC = () => {
     ) {
       dispatch(addProducts(JSON.parse(cachedProducts)));
     } else {
-      FETCH_PRODUCTS(500).then(({ products }) => {
-        localStorage.setItem("cachedProducts", JSON.stringify(products));
-        localStorage.setItem("cacheTime", Date.now().toString());
-        dispatch(addProducts(products));
-      });
+      fetchProduct();
     }
   }, [dispatch]);
 
@@ -125,8 +134,6 @@ const AllProducts: FC = () => {
                     ? product.images[1]
                     : product.thumbnail
                 }
-                onLoad={handleImageLoad}
-                onError={handleImageError}
               />
             ))}
           </div>

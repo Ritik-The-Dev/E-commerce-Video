@@ -2,16 +2,24 @@ import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../interfaces/DataProvider";
 import ProductCard from "../components/ProductCard";
-import { FETCH_PRODUCTS_BY_CATEGORY } from "../api/Api";
+import { fetchProductsByCategory } from "../api/Api";
 
 const SingleCategory: FC = () => {
   const { slug } = useParams();
   const [productList, setProductList] = useState<Product[]>([]);
 
   useEffect(() => {
-    FETCH_PRODUCTS_BY_CATEGORY(slug).then(({ products }) => {
-      setProductList(products);
-    });
+    const fetchProdByCategory = async () => {
+      try {
+        const data = await fetchProductsByCategory(slug);
+        if (data) {
+          setProductList(data);
+        }
+      } catch (error:any) {
+        console.error(`Error Fetching Category Products : ${error}`);
+      }
+    };
+    fetchProdByCategory();
   }, [slug]);
 
   return (

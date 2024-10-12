@@ -11,10 +11,14 @@ export interface Product {
   stock?: number;
   discountPercentage?: number;
   image: string | undefined;
-  onLoad: (event: React.SyntheticEvent<HTMLImageElement>) => void;
-  onError: (event: React.SyntheticEvent<HTMLImageElement>) => void;
 }
 
 export interface CartItem extends Product {
   quantity?: number;
+}
+
+export interface Category {
+  name: string;
+  slug: string;
+  url: string;
 }

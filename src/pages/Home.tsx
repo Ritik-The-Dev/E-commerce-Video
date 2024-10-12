@@ -12,37 +12,40 @@ import LatestProducts from "../components/LatestProducts";
 import Banner from "../components/Banner";
 import Marquee from "react-fast-marquee";
 import WhyShopWithUs from "../components/WhyShopWithUs";
-import { FETCH_PRODUCTS } from "../api/Api";
+import { fetchProducts } from "../api/Api";
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    FETCH_PRODUCTS(24).then(({ products }) => {
-      const productList: Product[] = [];
-      products.forEach((product: Product) => {
-        productList.push({
-          id: product.id,
-          title: product.title,
-          images: product.images,
-          price: product.price,
-          rating: product.rating,
-          thumbnail: product.thumbnail,
-          description: product.description,
-          category: product.category,
-          discountPercentage: product.discountPercentage,
-          image: "",
-          onLoad: () => {
-            console.log("Image loaded");
-          },
-          onError: () => {
-            console.log("Image failed to load");
-          },
+  const fetchProduct = async () => {
+    try {
+      const data = await fetchProducts(24);
+      if (data) {
+        const productList: Product[] = [];
+        data.forEach((product: Product) => {
+          productList.push({
+            id: product.id,
+            title: product.title,
+            images: product.images,
+            price: product.price,
+            rating: product.rating,
+            thumbnail: product.thumbnail,
+            description: product.description,
+            category: product.category,
+            discountPercentage: product.discountPercentage,
+            image: "",
+          });
         });
-      });
-      dispatch(updateFeaturedList(productList.slice(0, 8)));
-      dispatch(updateNewList(productList.slice(8, 16)));
-    });
+        dispatch(updateFeaturedList(productList.slice(0, 8)));
+        dispatch(updateNewList(productList.slice(8, 16)));
+      }
+    } catch (error:any) {
+      console.error(`Error Fetching Products ${error}`);
+    }
+  };
+
+  useEffect(() => {
+    fetchProduct();
   }, [dispatch]);
 
   return (

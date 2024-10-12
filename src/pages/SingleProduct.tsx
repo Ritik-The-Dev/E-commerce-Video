@@ -12,7 +12,7 @@ import ProductList from "../components/ProductList";
 import Reviews from "../components/Reviews";
 import { MdFavoriteBorder } from "react-icons/md";
 import { addToWishlist } from "../redux/features/productSlice";
-import { FETCH_PRODUCT_DETAIL, FETCH_PRODUCTS_BY_CATEGORY } from "../api/Api";
+import { fetchProductDetail, fetchProductsByCategory } from "../api/Api";
 
 const lorem =
   "It is important to take care of the patient, to be followed by the patient, but it will happen at such a time that there is a lot of work and pain. For to come to the smallest detail, no one should practice any kind of work unless he derives some benefit from it. Do not be angry with the pain in the reprimand in the pleasure he wants to be a hair from the pain in the hope that there is no breeding. Unless they are blinded by lust, they do not come forth; they are in fault who abandon their duties and soften their hearts, that is, their labors.";
@@ -31,25 +31,46 @@ const SingleProduct: FC = () => {
   const items = useAppSelector((state) => state.cartReducer.cartItems);
   const wishlist = useAppSelector((state) => state.productReducer.wishlist);
 
+  const fetchProdByCategory = async (sCategory: string) => {
+    try {
+      const data: Product[] = await fetchProductsByCategory(sCategory);
+      if (data) {
+        const filtered = data.filter((product) => {
+          if (productID && product.id !== parseInt(productID)) return product;
+        });
+        setSimilar(filtered);
+      }
+    } catch (error:any) {
+      console.error(`Error Fetching Category Products : ${error}`);
+    }
+  };
+
+  const fetchProdDetail = async (productID: string | undefined) => {
+    if (!productID) {
+      console.error("Product ID is required");
+      return;
+    }
+    try {
+      const data = await fetchProductDetail(productID);
+      if (data) {
+        const { thumbnail, images, category } = data;
+        setProduct(data);
+        setImgs(images);
+        setScategory(category);
+        setSelectedImg(thumbnail);
+      }
+    } catch (err: any) {
+      console.error(`Error Fetching Product Detail: ${err}`);
+    }
+  };
+
   useEffect(() => {
-    FETCH_PRODUCT_DETAIL(productID).then((data) => {
-      const { thumbnail, images, category } = data;
-      setProduct(data);
-      setImgs(images);
-      setScategory(category);
-      setSelectedImg(thumbnail);
-    });
+    fetchProdDetail(productID);
   }, [productID]);
 
   useEffect(() => {
     if (sCategory && sCategory !== "") {
-      FETCH_PRODUCTS_BY_CATEGORY(sCategory).then((data) => {
-        const _products: Product[] = data.products;
-        const filtered = _products.filter((product) => {
-          if (productID && product.id !== parseInt(productID)) return product;
-        });
-        setSimilar(filtered);
-      });
+      fetchProdByCategory(sCategory);
     }
   }, [productID, sCategory]);
 
@@ -69,12 +90,6 @@ const SingleProduct: FC = () => {
           thumbnail: product.thumbnail,
           discountPercentage: product.discountPercentage,
           image: "",
-          onLoad: () => {
-            console.log("Image loaded");
-          },
-          onError: () => {
-            console.log("Image failed to load");
-          },
         })
       );
     toast.success("item added to cart successfully", {
@@ -94,12 +109,6 @@ const SingleProduct: FC = () => {
           thumbnail: product.thumbnail,
           discountPercentage: product.discountPercentage,
           image: "",
-          onLoad: () => {
-            console.log("Buy Now loaded");
-          },
-          onError: () => {
-            console.log("Buy Now failed to load");
-          },
         })
       );
     dispatch(setCartState(true));

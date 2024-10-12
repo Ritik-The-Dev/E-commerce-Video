@@ -22,7 +22,7 @@ import {
   faBasketShopping,
   faGem,
 } from "@fortawesome/free-solid-svg-icons"; // Import icons
-import { FETCH_CATEGORIES } from "../api/Api";
+import { fetchCategories } from "../api/Api";
 
 const categoryIcons = {
   Fragrances: faPumpSoap,
@@ -53,9 +53,20 @@ const AllCategories: FC = () => {
   );
 
   useEffect(() => {
-    FETCH_CATEGORIES().then((data) => dispatch(addCategories(data)));
-    if (allCategories.length === 0)
-      FETCH_CATEGORIES().then((data) => dispatch(addCategories(data)));
+    const fetchCategory = async () => {
+      try {
+        const data = await fetchCategories();
+        if (data) {
+          dispatch(addCategories(data));
+        }
+      } catch (error:any) {
+        console.log(`Error fetching Categories ${error}`);
+      }
+    };
+
+    if (allCategories.length === 0) {
+      fetchCategory();
+    }
   }, [allCategories, dispatch]);
 
   return (

@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { updateDarkMode } from "../redux/features/homeSlice";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { Product } from "../interfaces/DataProvider";
-import { GET_SEARCH_PRODUCTS } from "../api/Api";
+import { getSearchProducts } from "../api/Api";
 
 const Navbar: FC = () => {
   const dispatch = useAppDispatch();
@@ -55,9 +55,11 @@ const Navbar: FC = () => {
   const handleSearch = async () => {
     if (searchTerm.trim() === "") return;
     try {
-      const data = await GET_SEARCH_PRODUCTS(searchTerm);
-      setSearchResults(data.products);
-    } catch (error) {
+      const data = await getSearchProducts(searchTerm);
+      if (data) {
+        setSearchResults(data);
+      }
+    } catch (error: any) {
       console.error("Error fetching search results:", error);
     }
   };
