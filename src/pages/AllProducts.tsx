@@ -95,15 +95,6 @@ const AllProducts: FC = () => {
     }
   };
 
-  // Handle image loading issues
-  const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    event.currentTarget.style.opacity = "1";
-  };
-
-  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    event.currentTarget.src = "/loader.svg"; // Add a fallback image
-  };
-
   return (
     <div className="container mx-auto min-h-[83vh] p-4 font-karla">
       <div className="grid grid-cols-4 gap-1">

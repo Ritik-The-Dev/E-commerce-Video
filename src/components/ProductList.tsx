@@ -6,14 +6,6 @@ const ProductList: FC<{ title: string; products: Product[] }> = ({
   title,
   products,
 }) => {
-  // Handle image loading issues
-  const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    event.currentTarget.style.opacity = "1";
-  };
-
-  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    event.currentTarget.src = "/loader.svg"; // Add a fallback image
-  };
   return (
     <>
       <style>{`
