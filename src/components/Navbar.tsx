@@ -13,6 +13,7 @@ import { updateDarkMode } from "../redux/features/homeSlice";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { Product } from "../interfaces/DataProvider";
 import { getSearchProducts } from "../api/Api";
+import toast from "react-hot-toast";
 
 const Navbar: FC = () => {
   const dispatch = useAppDispatch();
@@ -60,10 +61,38 @@ const Navbar: FC = () => {
         setSearchResults(data);
       }
     } catch (error: any) {
-      console.error("Error fetching search results:", error);
+      toast.error(
+        `Error fetching search results ${error.response.data.error}`,
+        {
+          position: "top-right",
+        }
+      );
     }
   };
 
+  const navItems = [
+    {
+      id: 1,
+      name: "Products",
+      url: "/products",
+      dataTest: "main-products",
+      onClick: toggleDrawer,
+    },
+    {
+      id: 2,
+      name: "Categories",
+      url: "/categories",
+      dataTest: "main-categories",
+      onClick: toggleDrawer,
+    },
+    {
+      id: 3,
+      name: "Wishlist",
+      url: "/wishlist",
+      dataTest: "main-wishlist",
+      onClick: toggleDrawer,
+    },
+  ];
   return (
     <div className="py-4 bg-white dark:bg-slate-800 top-0 sticky z-10 shadow-lg font-karla">
       <div className="container mx-auto px-4">
@@ -92,27 +121,16 @@ const Navbar: FC = () => {
             </div>
           </div>
           <div className="hidden lg:flex gap-4 md:gap-8 items-center dark:text-white">
-            <Link
-              to="/products"
-              className="text-xl font-bold"
-              data-test="main-products"
-            >
-              Products
-            </Link>
-            <Link
-              to="/categories"
-              className="text-xl font-bold"
-              data-test="main-categories"
-            >
-              Categories
-            </Link>
-            <Link
-              to="/wishlist"
-              className="text-xl font-bold"
-              data-test="main-wishlist"
-            >
-              Wishlist
-            </Link>
+            {navItems.map((navItem) => (
+              <Link
+                key={navItem.id}
+                to={navItem.url}
+                className="text-xl font-bold"
+                data-test={navItem.dataTest}
+              >
+                {navItem.name}
+              </Link>
+            ))}
             <div
               onClick={() => {
                 dispatch(updateDarkMode(!isDarkMode));
@@ -182,30 +200,17 @@ const Navbar: FC = () => {
             </div>
           </div>
           <div className="flex flex-col gap-4 mt-8">
-            <Link
-              to="/products"
-              className="text-xl font-bold dark:text-white"
-              data-test="main-products"
-              onClick={toggleDrawer}
-            >
-              Products
-            </Link>
-            <Link
-              to="/categories"
-              className="text-xl font-bold dark:text-white"
-              data-test="main-categories"
-              onClick={toggleDrawer}
-            >
-              Categories
-            </Link>
-            <Link
-              to="/wishlist"
-              className="text-xl font-bold dark:text-white"
-              data-test="main-wishlist"
-              onClick={toggleDrawer}
-            >
-              Wishlist
-            </Link>
+            {navItems.map((navItem) => (
+              <Link
+                key={navItem.id}
+                to={navItem.url}
+                className="text-xl font-bold dark:text-white"
+                data-test={navItem.dataTest}
+                onClick={navItem.onClick}
+              >
+                {navItem.name}
+              </Link>
+            ))}
             <div
               onClick={() => {
                 dispatch(updateDarkMode(!isDarkMode));

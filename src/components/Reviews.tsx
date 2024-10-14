@@ -79,7 +79,11 @@ const getShuffledArr = () => {
   return arr;
 };
 
-const Reviews: FC<{ id: number }> = ({ id }) => {
+interface ReviewsProps {
+  id: number;
+}
+
+const Reviews: FC<ReviewsProps> = ({ id }) => {
   const [items, setItems] = useState<ReviewItem[]>([]);
 
   useEffect(() => {

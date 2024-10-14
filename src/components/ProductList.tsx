@@ -2,10 +2,12 @@ import { FC } from "react";
 import { Product } from "../interfaces/DataProvider";
 import ProductCard from "./ProductCard";
 
-const ProductList: FC<{ title: string; products: Product[] }> = ({
-  title,
-  products,
-}) => {
+interface ProductListProps {
+  title: string;
+  products: Product[];
+}
+
+const ProductList: FC<ProductListProps> = ({ title, products }) => {
   return (
     <>
       <style>{`

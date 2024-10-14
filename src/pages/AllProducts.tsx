@@ -4,6 +4,7 @@ import { addProducts } from "../redux/features/productSlice";
 import ProductCard from "../components/ProductCard";
 import { Product } from "../interfaces/DataProvider";
 import { fetchProducts } from "../api/Api";
+import toast from "react-hot-toast";
 
 const AllProducts: FC = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +25,9 @@ const AllProducts: FC = () => {
         dispatch(addProducts(data));
       }
     } catch (error: any) {
-      console.error(`Error Fetching Products ${error}`);
+      toast.error(`Error fetching products ${error.response.data.error}`, {
+        position: "top-right",
+      });
     }
   };
 

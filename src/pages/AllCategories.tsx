@@ -23,6 +23,7 @@ import {
   faGem,
 } from "@fortawesome/free-solid-svg-icons"; // Import icons
 import { fetchCategories } from "../api/Api";
+import toast from "react-hot-toast";
 
 const categoryIcons = {
   Fragrances: faPumpSoap,
@@ -59,8 +60,10 @@ const AllCategories: FC = () => {
         if (data) {
           dispatch(addCategories(data));
         }
-      } catch (error:any) {
-        console.log(`Error fetching Categories ${error}`);
+      } catch (error: any) {
+        toast.error(`Error fetching categories ${error.response.data.error}`, {
+          position: "top-right",
+        });
       }
     };
 

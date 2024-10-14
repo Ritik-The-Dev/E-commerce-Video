@@ -1,7 +1,12 @@
 import { FC } from "react";
 import useDiscount from "../hooks/useDiscount";
 
-const PriceSection: FC<{ price: number; discountPercentage: number }> = ({
+interface PriceSectionProps {
+  price: number;
+  discountPercentage?: number; // Optional prop with a default value
+}
+
+const PriceSection: FC<PriceSectionProps> = ({
   price,
   discountPercentage = 0,
 }) => {

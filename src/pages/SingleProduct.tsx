@@ -40,8 +40,13 @@ const SingleProduct: FC = () => {
         });
         setSimilar(filtered);
       }
-    } catch (error:any) {
-      console.error(`Error Fetching Category Products : ${error}`);
+    } catch (error: any) {
+      toast.error(
+        `Error fetching category products ${error.response.data.error}`,
+        {
+          position: "top-right",
+        }
+      );
     }
   };
 
@@ -59,8 +64,13 @@ const SingleProduct: FC = () => {
         setScategory(category);
         setSelectedImg(thumbnail);
       }
-    } catch (err: any) {
-      console.error(`Error Fetching Product Detail: ${err}`);
+    } catch (error: any) {
+      toast.error(
+        `Error fetching product details ${error.response.data.error}`,
+        {
+          position: "top-right",
+        }
+      );
     }
   };
 

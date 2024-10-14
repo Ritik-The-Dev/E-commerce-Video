@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Product } from "../interfaces/DataProvider";
 import ProductCard from "../components/ProductCard";
 import { fetchProductsByCategory } from "../api/Api";
+import toast from "react-hot-toast";
 
 const SingleCategory: FC = () => {
   const { slug } = useParams();
@@ -15,8 +16,13 @@ const SingleCategory: FC = () => {
         if (data) {
           setProductList(data);
         }
-      } catch (error:any) {
-        console.error(`Error Fetching Category Products : ${error}`);
+      } catch (error: any) {
+        toast.error(
+          `Error fetching category products : ${error.response.data.error}`,
+          {
+            position: "top-right",
+          }
+        );
       }
     };
     fetchProdByCategory();

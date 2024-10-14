@@ -11,14 +11,14 @@ import ScrollToTopButton from "./components/ScrollToTopButton";
 import BannerPopup from "./components/BannerPopup";
 import AllCategories from "./pages/AllCategories";
 import SingleCategory from "./pages/SingleCategory";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { addToCart } from "./redux/features/cartSlice";
 import { addToWishlist } from "./redux/features/productSlice";
 import { CartItem } from "./interfaces/DataProvider";
 import { useAppDispatch } from "./redux/hooks";
 import { updateDarkMode } from "./redux/features/homeSlice";
 
-function App() {
+const App: FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -57,6 +57,6 @@ function App() {
       <BannerPopup />
     </>
   );
-}
+};
 
 export default App;

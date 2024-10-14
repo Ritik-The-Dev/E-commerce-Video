@@ -13,6 +13,7 @@ import Banner from "../components/Banner";
 import Marquee from "react-fast-marquee";
 import WhyShopWithUs from "../components/WhyShopWithUs";
 import { fetchProducts } from "../api/Api";
+import toast from "react-hot-toast";
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
@@ -39,8 +40,10 @@ const Home: FC = () => {
         dispatch(updateFeaturedList(productList.slice(0, 8)));
         dispatch(updateNewList(productList.slice(8, 16)));
       }
-    } catch (error:any) {
-      console.error(`Error Fetching Products ${error}`);
+    } catch (error: any) {
+      toast.error(`Error Fetching Products ${error}`, {
+        position: "top-right",
+      });
     }
   };
 
