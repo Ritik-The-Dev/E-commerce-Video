@@ -1,4 +1,4 @@
-# Shopify - a simple eCommerce app
+# Shopeasy - a simple eCommerce app
 
 Welcome to my E-commerce App! This project is a dummy e-commerce application built using React, Tailwind CSS, Vite, TypeScript, and Redux Toolkit. It aims to showcase various features commonly found in e-commerce platforms, including a homepage, product listing page, cart functionality, and pages like wishlist.
 

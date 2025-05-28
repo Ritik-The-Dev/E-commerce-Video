@@ -102,7 +102,7 @@ const Navbar: FC = () => {
             className="text-4xl font-bold dark:text-white"
             data-test="main-logo"
           >
-            Shopify
+            SHOPEASY
           </Link>
           <div className="lg:flex hidden w-full max-w-[500px]">
             <input

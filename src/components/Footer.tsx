@@ -24,7 +24,7 @@ const Footer: FC = () => (
         </div>
       </div>
       <div className="border-t border-gray-700 mt-8 pt-6 text-sm text-center">
-        <p>&copy; {new Date().getFullYear()} Shopify. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Shopeasy. All rights reserved.</p>
       </div>
     </div>
   </footer>
